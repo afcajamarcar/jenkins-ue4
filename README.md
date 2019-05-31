@@ -91,7 +91,7 @@ for /f "tokens=*" %%a in ( 'git show -s %GIT_COMMIT%' ) do ( set myvar=%%a )
 for /f "tokens=2" %%G in ("%myvar%") do (set buildnumber=%%G)
 "C:\path\to\scripts\Step6_UploadToS3.bat" %buildnumber%
 ```
-###### Build Step 7 (Optional - Notifies in Slack when project is complete)
+###### Build Step 7 (Optional - Fetchs the S3 file signed url that expires in a week)
 ```batch
 python "C:\path\to\scripts\sendMessageToSlack.py" ":link: Getting S3 link..."
 setlocal enableextensions
@@ -101,3 +101,6 @@ for /f "tokens=*" %%b in ( 'aws s3 presign s3://S3_BUCKET/GAME_FOLDER/GAME_%buil
 python "C:\path\to\scripts\sendMessageToSlack.py"\sendMessageToSlack.py" %link%
 ```
 ---
+
+That should do the trick! if you're interested in the Jenkins job configuration, feel free to DM me.
+And last but not least, all the credit should go to the author symapgames from which I forked this repo.
