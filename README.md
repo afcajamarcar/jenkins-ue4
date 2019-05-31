@@ -97,10 +97,10 @@ python "C:\path\to\scripts\sendMessageToSlack.py" ":link: Getting S3 link..."
 setlocal enableextensions
 for /f "tokens=*" %%a in ( 'git show -s %GIT_COMMIT%' ) do ( set myvar=%%a )
 for /f "tokens=2" %%G in ("%myvar%") do (set buildnumber=%%G)
-for /f "tokens=*" %%b in ( 'aws s3 presign s3://S3_BUCKET/GAME_FOLDER/GAME_%buildnumber%.zip' ) do ( set link=%%b )
+for /f "tokens=*" %%b in ( 'aws s3 presign s3://S3_BUCKET/GAME_FOLDER/GAME_%buildnumber%.zip --expires-in 604800' ) do ( set link=%%b )
 python "C:\path\to\scripts\sendMessageToSlack.py"\sendMessageToSlack.py" %link%
 ```
 ---
 
 That should do the trick! if you're interested in the Jenkins job configuration, feel free to DM me.
-And last but not least, all the credit should go to the author symapgames from which I forked this repo.
+And last but not least, all the credit should go to the author symapgames from which I forked this repo.    
